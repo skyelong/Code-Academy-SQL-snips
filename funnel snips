@@ -1,7 +1,7 @@
 -- uses the case to only count one group. In this case it is choosing only the control group
 
 select modal_text,
-count ( 
+count (
 distinct case
 when ab_group = 'control' then user_id
 end) as 'control_clicks'
@@ -11,7 +11,7 @@ order by 1;
 
 --Adding in the variant group
 select modal_text,
-count ( 
+count (
 distinct case
 when ab_group = 'control' then user_id
 end) as 'control_clicks',
@@ -27,7 +27,16 @@ order by 1;
  select * from
  browse as 'b'
  left join checkout as 'c'
- on c.user_id = b.user_id 
+ on c.user_id = b.user_id
  left join purchase as 'p'
+on p.user_id = c.user_id
+limit 50;
+
+--Limiting the number of columns
+select distinct b.browse_date, b.user_id, c.user_id is not null 'is_checkout', p.user_id is not null as 'is_purchase' from
+browse as 'b'
+left join checkout as 'c'
+on c.user_id = b.user_id
+left join purchase as 'p'
 on p.user_id = c.user_id
 limit 50;
