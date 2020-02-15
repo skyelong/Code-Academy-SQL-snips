@@ -8,3 +8,16 @@ end) as 'control_clicks'
 from onboarding_modals
 group by 1
 order by 1;
+
+--Adding in the variant group
+select modal_text,
+count ( 
+distinct case
+when ab_group = 'control' then user_id
+end) as 'control_clicks',
+count(distinct case
+     when ab_group = 'variant' then user_id
+     end) as 'variant_clicks'
+from onboarding_modals
+group by 1
+order by 1;
