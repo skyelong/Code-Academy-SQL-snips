@@ -21,3 +21,13 @@ count(distinct case
 from onboarding_modals
 group by 1
 order by 1;
+
+
+--Using three seperate tables to create a funnel
+ select * from
+ browse as 'b'
+ left join checkout as 'c'
+ on c.user_id = b.user_id 
+ left join purchase as 'p'
+on p.user_id = c.user_id
+limit 50;
